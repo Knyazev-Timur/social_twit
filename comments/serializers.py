@@ -11,7 +11,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        exclude = "comments"
 
     def create(self, validated_data):
         comment_data = Comment.objects.create(**validated_data)
