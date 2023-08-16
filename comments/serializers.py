@@ -7,6 +7,7 @@ from comments.models import Comment
 
 class CommentCreateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
+    created_at = serializers.DateField(read_only=True)
 
     class Meta:
         model = Comment
