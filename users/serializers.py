@@ -48,3 +48,9 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         return user
 
 
+class UserDestroySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id']
+
+

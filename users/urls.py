@@ -11,8 +11,9 @@ urlpatterns = [
     path('create/', UserCreateView.as_view()),
     path('<int:pk>/', UserDetailView.as_view()),
     path('<int:pk>/update/', UserUpdateView.as_view()),
-    # path('token/', TokenObtainPairView.as_view()),
-    # path('token/refresh/', TokenRefreshView.as_view()),
+    path('<int:pk>/delete/', UserUpdateView.as_view()),
+    path('token/', TokenObtainPairView.as_view()),
+    path('token/refresh/', TokenRefreshView.as_view()),
     path('list/', UsersListView.as_view()),
 ]
 
