@@ -1,13 +1,8 @@
-
-from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 
 from users.models import User
 # from authentication.permissions import UserIsActivePermission
-from users.serializers import UserCreateSerializer, UserListSerializer
+from users.serializers import UserCreateSerializer, UserListSerializer, UserDetailSerializer, UserUpdateSerializer
 
 
 class UserCreateView(CreateAPIView):
@@ -19,4 +14,15 @@ class UserCreateView(CreateAPIView):
 class UsersListView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserListSerializer
+    # permission_classes = [IsAdminUser]
+
+
+class UserDetailView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+    # permission_classes = [IsAdminUser | UserOwnerPermission]
+
+class UserUpdateView(UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserUpdateSerializer
     # permission_classes = [IsAdminUser]
