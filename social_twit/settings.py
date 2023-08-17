@@ -152,3 +152,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PHONENUMBER_DEFAULT_FORMAT='NATIONAL'
+
+
+ALLOWED_MAIL_DOMAIN = ('mail.ru', 'yandex.ru')
+STOP_LIST_WORDS = ('чепуха', 'ерунда', 'глупость', 'con')

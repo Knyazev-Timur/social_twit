@@ -2,10 +2,10 @@ from datetime import date
 
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import BaseSerializer
+
 
 from users.models import User
-from users.validators import ValidationPassword
+from users.validators import ValidationPassword, ValidationEmail
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -16,15 +16,22 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = super().create(validated_data)
         password = user.password
+        email = user.email
 
         password_validation = ValidationPassword(password)
         if password_validation.get_validate_password():
             user.set_password(user.password)
-            user.save()
-            return user
         else:
-            raise ValidationError(f"Пароль должен быть не менее 8 символов, содержать цифры и буквы")
+            raise ValidationError(f"Пароль не может быть менее 8 символов, должен содержать цифры и буквы!")
 
+        email_validation = ValidationEmail(email)
+        if email_validation.get_validate_email():
+            user.email = validated_data['email']
+        else:
+            raise ValidationError(f"Допустимые почтовые домены: 'mail.ru' или 'yandex.ru'!")
+
+        user.save()
+        return user
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -66,11 +73,16 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         if password_validation.get_validate_password():
             instance.set_password(instance.password)
         else:
-            raise ValidationError(f"Пароль должен быть не менее 8 символов, содержать цифры и буквы")
+            raise ValidationError(f"Пароль не может быть менее 8 символов, должен содержать цифры и буквы!")
 
-        mail_domain = ('mail.ru', 'yandex.ru')
+
+        email_validation = ValidationEmail(email)
+        if email_validation.get_validate_email():
+            instance.email = validated_data['email']
+        else:
+            raise ValidationError(f"Допустимые почтовые домены: 'mail.ru' или 'yandex.ru'!")
+
         instance.save()
-
         return instance
 
 
