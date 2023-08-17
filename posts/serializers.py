@@ -1,5 +1,3 @@
-from datetime import date
-
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -27,6 +25,7 @@ class PostCreateSerializer(serializers.ModelSerializer):
         model = Post
         exclude = ('images',)
 
+
     def create(self, validated_data):
         post_data = Post.objects.create(**validated_data)
 
@@ -53,18 +52,18 @@ class PostCreateSerializer(serializers.ModelSerializer):
 class PostUpdateSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(read_only=True)
     created_at = serializers.DateField(read_only=True)
+    update_at = serializers.DateField(read_only=True)
 
     class Meta:
         model = Post
-        exclude = ('images',)
+        exclude = ("images",)
 
     def update(self, instance: Post, validated_data: dict) -> Post:
 
         instance.author = validated_data['author']
 
-        comments = tuple(validated_data['comments'])
+        comments = tuple(validated_data.get('comments', []))
         instance.comments.set([comment.id for comment in comments])
-
         title = validated_data['title']
         text = validated_data['text']
         birthday = instance.author.birthday

@@ -16,3 +16,15 @@ class Post(models.Model):
     comments = models.ManyToManyField(Comment, default=None, verbose_name='Комментарии')
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     update_at = models.DateField(null=True, verbose_name='Дата изменения')
+
+
+    def display_comments(self):
+        return '; '.join([comment.text for comment in self.comments.all()])
+    display_comments.short_description = 'Комментарии'
+
+    class Meta:
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"
+
+    def __str__(self):
+        return self.title

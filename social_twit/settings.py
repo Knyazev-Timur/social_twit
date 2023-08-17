@@ -165,7 +165,7 @@ REST_FRAMEWORK = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-PHONENUMBER_DEFAULT_FORMAT='NATIONAL' # Для отображения номера телефона в национальном формате: 8 (999) 888 77 66
+# PHONENUMBER_DEFAULT_FORMAT='NATIONAL' # Для отображения номера телефона в национальном формате: 8 (999) 888 77 66
 
 
 ALLOWED_MAIL_DOMAIN = ('mail.ru', 'yandex.ru')

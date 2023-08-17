@@ -12,3 +12,9 @@ class User(AbstractUser):
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     update_at = models.DateField(null=True, verbose_name='Дата изменения')
 
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
+
+    def __str__(self):
+        return self.username

@@ -39,6 +39,7 @@ class UserListSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'password', 'phonenumber', 'birthday', 'email', 'is_staff']
 
 
+
 class UserDetailSerializer(serializers.ModelSerializer):
 
     user = User.objects.all()

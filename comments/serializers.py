@@ -8,10 +8,11 @@ from comments.models import Comment
 class CommentCreateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
     created_at = serializers.DateField(read_only=True)
+    update_at = serializers.DateField(read_only=True)
 
     class Meta:
         model = Comment
-        exclude = "comments"
+        fields = "__all__"
 
     def create(self, validated_data):
         comment_data = Comment.objects.create(**validated_data)
@@ -53,5 +54,3 @@ class CommentDestroySerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['id']
-
-
