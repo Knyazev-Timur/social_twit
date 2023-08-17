@@ -154,10 +154,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
+}
+
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-PHONENUMBER_DEFAULT_FORMAT='NATIONAL'
+PHONENUMBER_DEFAULT_FORMAT='NATIONAL' # Для отображения номера телефона в национальном формате: 8 (999) 888 77 66
 
 
 ALLOWED_MAIL_DOMAIN = ('mail.ru', 'yandex.ru')
