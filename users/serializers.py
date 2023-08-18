@@ -39,7 +39,6 @@ class UserListSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'password', 'phonenumber', 'birthday', 'email', 'is_staff']
 
 
-
 class UserDetailSerializer(serializers.ModelSerializer):
 
     user = User.objects.all()
@@ -52,17 +51,16 @@ class UserDetailSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(read_only=True)
     created_at = serializers.DateField(read_only=True)
+    update_at = serializers.DateField(read_only=True)
 
     class Meta:
         model = User
-        # exclude = ('created_at',)
         fields = ['id', 'username', 'password', 'phonenumber', 'birthday', 'email', 'created_at', 'update_at', 'is_staff']
 
     def update(self, instance: User, validated_data: dict) -> User:
 
         instance.username = validated_data['username']
         password = validated_data['password']
-
 
         instance.phonenumber = validated_data['phonenumber']
         instance.birthday = validated_data['birthday']
@@ -72,7 +70,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
         password_validation = ValidationPassword(password)
         if password_validation.get_validate_password():
-            instance.set_password(instance.password)
+            instance.set_password(password)
+            instance.save()
         else:
             raise ValidationError(f"Пароль не может быть менее 8 символов, должен содержать цифры и буквы!")
 
@@ -80,6 +79,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         email_validation = ValidationEmail(email)
         if email_validation.get_validate_email():
             instance.email = validated_data['email']
+            instance.save()
         else:
             raise ValidationError(f"Допустимые почтовые домены: 'mail.ru' или 'yandex.ru'!")
 
