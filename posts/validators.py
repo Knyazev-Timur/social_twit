@@ -3,7 +3,6 @@ import datetime
 from social_twit.settings import STOP_LIST_WORDS
 
 
-
 class ValidationBirthday():
     def __init__(self, birthday):
         self.birthday = birthday

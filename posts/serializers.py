@@ -33,6 +33,10 @@ class PostCreateSerializer(serializers.ModelSerializer):
         title = post_data.title
         text = post_data.text
 
+        """
+        ValidationBirthday(birthday) - класс для валидации возраста автора, публикация постов допустима с 18 лет!
+        ValidationWords(text) - класс для текстовой валидации на содержание запрещенных слов 
+        """
         birthday_validation = ValidationBirthday(birthday)
         title_validation = ValidationWords(title)
         text_validation = ValidationWords(text)
@@ -68,6 +72,10 @@ class PostUpdateSerializer(serializers.ModelSerializer):
         text = validated_data['text']
         birthday = instance.author.birthday
 
+        """
+        ValidationBirthday(birthday) - класс для валидации возраста автора, публикация постов допустима с 18 лет!
+        ValidationWords(text) - класс для текстовой валидации на содержание запрещенных слов 
+        """
         birthday_validation = ValidationBirthday(birthday)
         title_validation = ValidationWords(title)
         text_validation = ValidationWords(text)

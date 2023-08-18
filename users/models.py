@@ -5,6 +5,19 @@ from django.contrib.auth.models import User, AbstractUser
 
 
 class User(AbstractUser):
+    """
+           Модель пользователя
+           username: CharField - Логин пользователя, обязательное поле
+           password: CharField - Пароль, обязательное поле. Обязательно должно содержать не менее 8 символов,
+                                 буквы и цифры, так же допустимы спецсимволы.
+           phonenumber: PhoneNumberField - Телефонный номер, может отабражаться в национальном или международном формате
+           birthday: DateField - Дата рождения, формат: 'YYYY-MM-DD'
+           email: EmailField - Почта, валидируется на допустимые домены: ALLOWED_MAIL_DOMAIN
+           created_at: DataField - Дата создания поста, заполняется автоматически при создании
+           updated_at: DataField - Дата редакции (обновления) поста, заполняется автоматически только при редактировании,
+                                   при создании принимает значения null
+
+    """
 
     phonenumber = PhoneNumberField(unique=True, verbose_name='Телефон')
     birthday = models.DateField(verbose_name='Дата рождения')

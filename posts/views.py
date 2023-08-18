@@ -18,7 +18,7 @@ class PostCreateView(CreateAPIView):
     serializer_class = PostCreateSerializer
     permission_classes = [IsAuthenticated]
 
-    def perform_create(self, serializer: PostCreateSerializer) -> None:
+    def perform_create(self, serializer: PostCreateSerializer):
         with transaction.atomic():
             post = serializer.save()
 
@@ -42,7 +42,6 @@ class PostUpdateView(UpdateAPIView):
     def pacth(self, request, *args, **kwargs):
         file = request.data.get('images', None)
         images = Post.objects.create(images=file)
-        # serializer = Reader.objects.all()
         s: PostUpdateSerializer = self.get_serializer(data=request.data)
         if s.is_valid():
             return Response(s.data)

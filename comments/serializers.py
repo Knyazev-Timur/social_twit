@@ -1,5 +1,4 @@
 from datetime import date
-
 from rest_framework import serializers
 
 from comments.models import Comment
@@ -16,7 +15,6 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         comment_data = Comment.objects.create(**validated_data)
-
         comment_data.save()
         return comment_data
 
@@ -39,6 +37,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 class CommentUpdateSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(read_only=True)
     created_at = serializers.DateField(read_only=True)
+    updated_at = serializers.DateField(read_only=True)
 
     class Meta:
         model = Comment

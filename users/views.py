@@ -37,7 +37,6 @@ class UserUpdateView(UpdateAPIView):
     permission_classes = [IsAdminUser | UserOwnerPermission]
 
     def pacth(self, request, *args, **kwargs):
-        # serializer = Reader.objects.all()
         s: UserUpdateSerializer = self.get_serializer(data=request.data)
         if s.is_valid():
             return Response(s.data)

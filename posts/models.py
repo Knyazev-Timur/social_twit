@@ -1,13 +1,21 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
-
-
 
 from comments.models import Comment
 from users.models import User
 
 
 class Post(models.Model):
+    """
+       Модель постов
+       title: Charfield - заголовок поста, максимальная длинна 100 символов, валидируется при создании и редактировании
+                          на запрещенные слова: STOP_LIST_WORDS
+       text: CharField - текст поста, максимальная длинна 1000 символов
+       author: ForeignKey - указание, на пользователя создавшего комментарий
+       comments: ManyToManyField - перечень ID комментариев к посту
+       created_at: DataField - Дата создания поста, заполняется автоматически при создании
+       updated_at: DataField - Дата редакции (обновления) поста, заполняется автоматически только при редактировании,
+                               при создании принимает значения null
+    """
 
     title = models.CharField(max_length=100, verbose_name="Заголовок")
     text = models.CharField(max_length=1000, verbose_name="Текст")

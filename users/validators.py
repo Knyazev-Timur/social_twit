@@ -3,7 +3,6 @@ import datetime
 from social_twit.settings import ALLOWED_MAIL_DOMAIN
 
 
-
 class ValidationPassword():
     def __init__(self, password):
         self.password = password
